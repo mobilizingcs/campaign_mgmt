@@ -18,7 +18,9 @@
 
     //get data
     oh.user.whoami().done(function(username){
+        updateProgress(10)
         oh.campaign.readall().done(function(data){
+            updateProgress(15)
             $("#progressdiv").removeClass("hidden");
             var urns = Object.keys(data);
             var progress = 0;
