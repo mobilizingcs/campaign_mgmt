@@ -2,6 +2,9 @@
     //initiate the client
     var oh = Ohmage("/app", "campaign-manager")
 
+    //debugging
+    window.oh = oh;
+
     //attach global callbacks
     oh.callback("done", function(x, status, req){
         //for debugging only
@@ -80,7 +83,10 @@
 
                     var a1 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-cog"></span> Settings').attr("href", "#").click(function(e){
                         e.preventDefault();
-                        $('#myModal').modal("show")
+                        $('#myModal').modal("show").on("shown.bs.modal", function(){
+                            $("#campaign_author").chosen({search_contains:true, no_results_text: "No such user found."});
+                            $("#campaign_shared,#campaign_state").bootstrapSwitch()
+                        });
                     });
 
                     return oh.survey.count(urn).done(function(counts){
@@ -122,6 +128,14 @@
                 initTable();
             });
         });
+
+        //get users
+        oh.user.read().done(function(x){
+            $.each(Object.keys(x).sort(), function( i, name ) {
+                $("#campaign_author").append($("<option />").text(name));
+            });
+        });
+
     });
 
     updateProgress = _.throttle(function(pct){

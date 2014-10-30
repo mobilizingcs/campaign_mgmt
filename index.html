@@ -15,7 +15,15 @@
         <script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 
-        <link href="css/app.css" rel="stylesheet" type="text/css"/>
+        <!-- MultiSelect widget -->
+        <script type="text/javascript" src="js/chosen.jquery.min.js"></script>
+        <link rel="stylesheet" href="css/chosen.css">
+
+        <!-- Switch widget -->
+        <script type="text/javascript" src="js/bootstrap-switch.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap-switch.min.css">
+
+        <link rel="stylesheet" href="css/app.css">
         <script type="text/javascript" src="js/jquery-cookie.js"></script>
         <script type="text/javascript" src="js/ohmage.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
@@ -73,10 +81,46 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Campaign Settings</h4>
+                <h4 class="modal-title">Campaign Settings</h4>
               </div>
               <div class="modal-body">
-                ...
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label for="campaign_name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="campaign_name" placeholder="My campaign">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="campaign_urn" class="col-sm-2 control-label">URN</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="campaign_urn" placeholder="urn:campaign:test:mycampaign">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="campaign_description" class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" rows="3" id="campaign_description" placeholder="This is my campaign"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="campaign_author" class="col-sm-2 control-label">Authors</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" id="campaign_author" data-placeholder="Select author..." multiple tabindex="3">
+
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="campaign_state" class="col-sm-2 control-label">State</label>
+                    <div class="col-sm-5">
+                        <input id="campaign_state" type="checkbox">
+                    </div>
+                    <div class="col-sm-5">
+                        <input id="campaign_shared" type="checkbox">
+                    </div>
+                  </div>
+                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
