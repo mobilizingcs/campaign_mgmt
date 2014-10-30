@@ -79,7 +79,8 @@
                     ul.append($("<li >").addClass('divider'))
 
                     var a1 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-cog"></span> Settings').attr("href", "#").click(function(e){
-                        $('#myModal').modal()
+                        e.preventDefault();
+                        $('#myModal').modal("show")
                     });
 
                     return oh.survey.count(urn).done(function(counts){
