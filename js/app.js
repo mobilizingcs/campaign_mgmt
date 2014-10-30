@@ -90,9 +90,7 @@
                         }
                         td4.text(count);
                     }).always(function(){
-                        var pct = (progress++/total) * 100;
-                        $(".progress-bar").attr("aria-valuenow", pct).css("width", + pct + "%");
-                        console.log("pct:" + pct)
+                        updateProgress((progress++/total) * 100);
                     });
                 }
             });
@@ -118,6 +116,10 @@
             });
         });
     });
+
+    updateProgress = _.throttle(function(pct){
+        $(".progress-bar").css("width", + pct + "%");
+    }, 300);
 
     function message(msg, type){
         // type must be one of success, info, warning, danger
