@@ -90,7 +90,7 @@
                         }
                         td4.text(count);
                     }).always(function(){
-                        updateProgress((progress++/total) * 100);
+                        updateProgress((progress++/total) * 75 + 25);
                     });
                 }
             });
