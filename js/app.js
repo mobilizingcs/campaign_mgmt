@@ -127,5 +127,8 @@
         // type must be one of success, info, warning, danger
         type = type || "danger"
         $("#errordiv").empty().append('<div class="alert alert-' + type + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+        $('html, body').animate({
+           scrollTop: 100
+        }, 200);
     }
 })();
