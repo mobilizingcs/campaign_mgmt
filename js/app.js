@@ -71,14 +71,8 @@
 
                     var a4 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-floppy-save"></span> Download XML').attr("href", "#").click(function(e){
                         e.preventDefault();
-                        var popup = window.open()
-                        oh.campaign.readall({
-                            campaign_urn_list : urn,
-                            output_format : "xml"
-                        }).done(function(data){
-                            //doesn't work properly, not sure why
-                            popup.document.write(data)
-                        });
+                        $("#hiddenurn").val(urn)
+                        $("#hiddenform").submit()
                     });
 
                     var a5 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-file"></span> Export Data')
