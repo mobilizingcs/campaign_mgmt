@@ -16,20 +16,19 @@
     //prevent timeout
     oh.keepalive();
 
-    //delete old stuff
-    delete localStorage.campaignWrapper;
-    $.removeCookie("currentCampaign");
-    $.removeCookie("currentSurvey");
-
     //get data
     oh.user.whoami().done(function(username){
         oh.campaign.readall().done(function(data){
+            $("#progressdiv").removeClass("hidden");
             var urns = Object.keys(data);
+            var progress = 0;
+            var total = 0;
             var requests = $.map(urns.sort(), function(urn, i){
                 var roles = data[urn]["user_roles"];
                 if($.inArray("author", roles) > -1 || $.inArray("supervisor", roles) > -1) {
 
                     var count = -1;
+                    total++;
 
                     var tr = $("<tr>").appendTo("#campaigntablebody")
                     var td1 = $("<td>").appendTo(tr).text(data[urn].name);
@@ -90,6 +89,10 @@
                             });
                         }
                         td4.text(count);
+                    }).always(function(){
+                        var pct = (progress++/total) * 100;
+                        $(".progress-bar").attr("aria-valuenow", pct).css("width", + pct + "%");
+                        console.log("pct:" + pct)
                     });
                 }
             });
@@ -109,6 +112,7 @@
 
             //reinit final datatable after counts have been updated
             $.when.apply($, requests).always(function() {
+                $("#progressdiv").addClass("hidden");
                 $('#campaigntable').dataTable().fnDestroy();
                 initTable();
             });
