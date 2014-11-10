@@ -265,7 +265,6 @@ function Ohmage(app, client){
 		return oh.call("/campaign/read", data);
 	}
 
-
 	//@args xml
 	//@args privacy_state
 	//@args running_state
