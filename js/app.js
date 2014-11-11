@@ -160,20 +160,17 @@
             $("#campaign_class option").each(function(i){
                 $(this).prop("selected", $.inArray($(this).attr("value"), longdata.classes) > -1);
             });
-            $('#myModal').modal("show")
+            $("#campaign_class").trigger("chosen:updated");
 
-            /*
-            $("campaign_class").trigger("chosen:updated")
+            //$('#myModal').modal("show")
+
             $('#myModal').modal("show").on("shown.bs.modal", function(){
-                $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."})
+                $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."})//.trigger("chosen:updated")
             });
-            console.log(data)
-            */
 
             $("#campaign_save_button").unbind("click").click(function(e){
-                var btn = $(this);
-                btn.attr("disabled", "disabled");
                 e.preventDefault();
+                var btn = $(this).attr("disabled", "disabled");
                 var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
                 var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
                 oh.campaign.update({
@@ -189,11 +186,8 @@
                     btn.removeAttr("disabled");
                 });
             });
-
         });
     }
-
-
 
     updateProgress = _.throttle(function(pct){
         $(".progress-bar").css("width", + pct + "%");
