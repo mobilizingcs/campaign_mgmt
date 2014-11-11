@@ -36,11 +36,11 @@
                     total++;
 
                     var tr = $("<tr>").appendTo("#campaigntablebody")
+                    var td5 = $("<td>").appendTo(tr);
                     var td1 = $("<td>").appendTo(tr).text(data[urn].name);
                     var td2 = $("<td>").appendTo(tr).text(data[urn].creation_timestamp);
                     var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
                     var td4 = $("<td>").appendTo(tr);
-                    var td5 = $("<td>").appendTo(tr);
 
                     var btn = $("<div />").addClass("btn-group").append('\
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> \
@@ -155,7 +155,7 @@
                     "dom" : '<"pull-right"l><"pull-left"f>tip',
                     "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                     "aoColumnDefs": [
-                       { 'bSortable': false, 'aTargets': [ 4 ] }
+                       { 'bSortable': false, 'aTargets': [ 0 ] }
                     ]
                 });
             }
