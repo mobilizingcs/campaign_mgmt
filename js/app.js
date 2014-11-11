@@ -83,7 +83,7 @@
 
                     var a1 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-cog"></span> Settings').attr("href", "#").click(function(e){
                         e.preventDefault();
-                        populateModal(urn, data[urn]);
+                        populateModal();
                     });
 
                     return oh.survey.count(urn).done(function(counts){
@@ -101,6 +101,51 @@
                     }).always(function(){
                         updateProgress((progress++/total) * 75 + 25);
                     });
+
+                    function populateModal(){
+                        oh.campaign.readall({
+                            campaign_urn_list : urn,
+                            output_format:"long"
+                        }).done(function(x){
+                            var longdata = x[urn];
+                            $("#campaign_name").val(longdata.name);
+                            $("#campaign_description").val(longdata.description);
+                            $("#campaign_urn").val(urn);
+
+                            //$("#campaign_running")[0].checked = (data["running_state"] == "running");
+                            //$("#campaign_privacy")[0].checked = (data["privacy_state"] == "shared");
+                            $("#campaign_privacy").bootstrapSwitch("state", longdata["privacy_state"] == "shared");
+                            $("#campaign_running").bootstrapSwitch("state", longdata["running_state"] == "running");
+
+                            $("#campaign_class option").each(function(i){
+                                $(this).prop("selected", $.inArray($(this).attr("value"), longdata.classes) > -1);
+                            });
+                            $("#campaign_class").trigger("chosen:updated");
+
+                            $('#myModal').modal("show").on("shown.bs.modal", function(){
+                                $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."});
+                            });
+
+                            $("#campaign_save_button").unbind("click").click(function(e){
+                                e.preventDefault();
+                                var btn = $(this).attr("disabled", "disabled");
+                                var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
+                                var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
+                                oh.campaign.update({
+                                    campaign_urn : urn,
+                                    running_state : running_state,
+                                    privacy_state : privacy_state,
+                                    description : $("#campaign_description").val(),
+                                    class_list_remove : longdata.classes,
+                                    class_list_add : $("#campaign_class").val()
+                                }).done(function(){
+                                    $('#myModal').modal("hide")
+                                }).always(function(){
+                                    btn.removeAttr("disabled");
+                                });
+                            });
+                        });
+                    }
                 }
             });
 
@@ -140,51 +185,6 @@
             });
         });
     });
-
-    function populateModal(urn, shortdata){
-        oh.campaign.readall({
-            campaign_urn_list : urn,
-            output_format:"long"
-        }).done(function(x){
-            var longdata = x[urn];
-            $("#campaign_name").val(longdata.name);
-            $("#campaign_description").val(longdata.description);
-            $("#campaign_urn").val(urn);
-
-            //$("#campaign_running")[0].checked = (data["running_state"] == "running");
-            //$("#campaign_privacy")[0].checked = (data["privacy_state"] == "shared");
-            $("#campaign_privacy").bootstrapSwitch("state", longdata["privacy_state"] == "shared");
-            $("#campaign_running").bootstrapSwitch("state", longdata["running_state"] == "running");
-
-            $("#campaign_class option").each(function(i){
-                $(this).prop("selected", $.inArray($(this).attr("value"), longdata.classes) > -1);
-            });
-            $("#campaign_class").trigger("chosen:updated");
-
-            $('#myModal').modal("show").on("shown.bs.modal", function(){
-                $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."});
-            });
-
-            $("#campaign_save_button").unbind("click").click(function(e){
-                e.preventDefault();
-                var btn = $(this).attr("disabled", "disabled");
-                var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
-                var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
-                oh.campaign.update({
-                    campaign_urn : urn,
-                    running_state : running_state,
-                    privacy_state : privacy_state,
-                    description : $("#campaign_description").val(),
-                    class_list_remove : longdata.classes,
-                    class_list_add : $("#campaign_class").val()
-                }).done(function(){
-                    $('#myModal').modal("hide")
-                }).always(function(){
-                    btn.removeAttr("disabled");
-                });
-            });
-        });
-    }
 
     updateProgress = _.throttle(function(pct){
         $(".progress-bar").css("width", + pct + "%");
