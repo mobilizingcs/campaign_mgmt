@@ -139,7 +139,6 @@
                 $("#campaign_class").append($("<option />").text(urn).attr("value", urn));
             });
         });
-
     });
 
     function populateModal(urn, shortdata){
@@ -162,10 +161,8 @@
             });
             $("#campaign_class").trigger("chosen:updated");
 
-            //$('#myModal').modal("show")
-
             $('#myModal').modal("show").on("shown.bs.modal", function(){
-                $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."})//.trigger("chosen:updated")
+                $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."});
             });
 
             $("#campaign_save_button").unbind("click").click(function(e){
