@@ -88,13 +88,13 @@
                   <div class="form-group">
                     <label for="campaign_name" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="campaign_name" placeholder="My campaign">
+                      <input type="text" class="form-control" id="campaign_name" placeholder="My campaign" disabled>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="campaign_urn" class="col-sm-2 control-label">URN</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="campaign_urn" placeholder="urn:campaign:test:mycampaign">
+                      <input type="text" class="form-control" id="campaign_urn" placeholder="urn:campaign:test:mycampaign" disabled>
                     </div>
                   </div>
                   <div class="form-group">
@@ -120,19 +120,21 @@
                   -->
 
                   <div class="form-group">
-                    <label for="campaign_state" class="col-sm-2 control-label">State</label>
-                    <div class="col-sm-5">
+
+                    <label for="campaign_state" class="col-sm-2 control-label">Running</label>
+                    <div class="col-sm-4">
                         <input id="campaign_running" type="checkbox">
                     </div>
-                    <div class="col-sm-5">
-                        <input id="campaign_shared" type="checkbox">
+
+                    <label for="campaign_state" class="col-sm-2 control-label">Privacy</label>
+                    <div class="col-sm-4">
+                        <input id="campaign_privacy" type="checkbox">
                     </div>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" id="campaign_save_button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>

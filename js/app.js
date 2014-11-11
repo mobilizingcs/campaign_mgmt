@@ -148,14 +148,14 @@
             output_format:"long"
         }).done(function(x){
             var longdata = x[urn];
-            $("#campaign_name").val(shortdata.name);
-            $("#campaign_description").val(shortdata.description);
+            $("#campaign_name").val(longdata.name);
+            $("#campaign_description").val(longdata.description);
             $("#campaign_urn").val(urn);
 
-            //$("#campaign_state")[0].checked = (data["running_state"] == "running");
-            //$("#campaign_shared")[0].checked = (data["privacy_state"] == "shared");
-            $("#campaign_shared").bootstrapSwitch("state", shortdata["privacy_state"] == "shared");
-            $("#campaign_running").bootstrapSwitch("state", shortdata["running_state"] == "running");
+            //$("#campaign_running")[0].checked = (data["running_state"] == "running");
+            //$("#campaign_privacy")[0].checked = (data["privacy_state"] == "shared");
+            $("#campaign_privacy").bootstrapSwitch("state", longdata["privacy_state"] == "shared");
+            $("#campaign_running").bootstrapSwitch("state", longdata["running_state"] == "running");
 
             $("#campaign_class option").each(function(i){
                 $(this).prop("selected", $.inArray($(this).attr("value"), longdata.classes) > -1);
@@ -170,8 +170,30 @@
             console.log(data)
             */
 
+            $("#campaign_save_button").unbind("click").click(function(e){
+                var btn = $(this);
+                btn.attr("disabled", "disabled");
+                e.preventDefault();
+                var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
+                var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
+                oh.campaign.update({
+                    campaign_urn : urn,
+                    running_state : running_state,
+                    privacy_state : privacy_state,
+                    description : $("#campaign_description").val(),
+                    class_list_remove : longdata.classes,
+                    class_list_add : $("#campaign_class").val()
+                }).done(function(){
+                    $('#myModal').modal("hide")
+                }).always(function(){
+                    btn.removeAttr("disabled");
+                });
+            });
+
         });
     }
+
+
 
     updateProgress = _.throttle(function(pct){
         $(".progress-bar").css("width", + pct + "%");
