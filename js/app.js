@@ -86,22 +86,6 @@
                         populateModal();
                     });
 
-                    return oh.survey.count(urn).done(function(counts){
-                        if(!Object.keys(counts).length){
-                            //no existing responses found
-                            count = 0;
-                        } else {
-                            count = $.map(counts, function(val, key) {
-                                return val[0].count;
-                            }).reduce(function(previousValue, currentValue) {
-                                return previousValue + currentValue;
-                            });
-                        }
-                        td4.text(count);
-                    }).always(function(){
-                        updateProgress((progress++/total) * 75 + 25);
-                    });
-
                     function populateModal(){
                         oh.campaign.readall({
                             campaign_urn_list : urn,
@@ -146,6 +130,22 @@
                             });
                         });
                     }
+
+                    return oh.survey.count(urn).done(function(counts){
+                        if(!Object.keys(counts).length){
+                            //no existing responses found
+                            count = 0;
+                        } else {
+                            count = $.map(counts, function(val, key) {
+                                return val[0].count;
+                            }).reduce(function(previousValue, currentValue) {
+                                return previousValue + currentValue;
+                            });
+                        }
+                        td4.text(count);
+                    }).always(function(){
+                        updateProgress((progress++/total) * 75 + 25);
+                    });
                 }
             });
 
