@@ -55,7 +55,7 @@
                         } else if(count > 0){
                             message("Campaign <strong>" + urn + "</strong> has existing responses and can therefore not be modified.")
                         } else {
-                            message("Placeholder for updating campaign.", "info")
+                            window.location.href = '../surveytool/#' + urn;
                         }
                     });
 
