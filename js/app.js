@@ -114,10 +114,11 @@
 
                             $('#myModal').modal("show").on("shown.bs.modal", function(){
                                 $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."});
+                                $(".xml-upload-form").fileinput();
                             });
 
                             var xmldata;
-                            $("input.xml-file-input").unbind("change").on("change", function(){
+                            $("input.xml-file-input").on("change", function(){
                                 var f = this.files[0];
                                 if(f){
                                     var r = new FileReader();
