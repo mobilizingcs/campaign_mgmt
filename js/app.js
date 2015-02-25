@@ -66,7 +66,7 @@
                         } else if(count === 0){
                             message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to visualize.")
                         } else {
-                            window.location.href = '../dashboard/#' + urn;
+                            window.location.href = '../navbar/dashboard/#' + urn;
                         }
                     });
 
