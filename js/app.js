@@ -106,10 +106,8 @@
                             });
                             $("#campaign_class").trigger("chosen:updated");
 
-                            if(count > 0){
+                            if(count){
                                 $(".xml-upload-form").hide();
-                            } else {
-                                $(".xml-upload-form").show();
                             }
 
                             $('#myModal').modal("show").on("shown.bs.modal", function(){
@@ -197,6 +195,12 @@
                 $('#campaigntable').dataTable().fnDestroy();
                 initTable();
             });
+
+            //resetters
+            $("#myModal").on("hidden.bs.modal", function(){
+                $(".xml-upload-form").show();
+                //$(".fileinput").fileinput("clear");
+            })
         });
 
         //get users
