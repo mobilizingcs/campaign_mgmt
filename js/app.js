@@ -116,6 +116,7 @@
                                 $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."});
                             });
 
+                            var xmldata;
                             $("input.xml-file-input").unbind("change").on("change", function(){
                                 var f = this.files[0];
                                 if(f){
@@ -145,7 +146,7 @@
 
                                 //update xml only if selected
                                 if(xmldata){
-                                    args.xml = xmldata;
+                                    args.xml = fixxml(xmldata, longdata.name ,urn);
                                 }
 
                                 oh.campaign.update(args).done(function(){
@@ -224,4 +225,22 @@
            scrollTop: 100
         }, 200);
     }
+
+    //XML parser for mixed case tag names (HTML only supports lowercase tags)
+    var parse = (function(parser, jQuery){
+        return function(str) {
+            return jQuery(parser.parseFromString(str, "text/xml").documentElement)
+        }
+    })(new DOMParser(), jQuery)
+
+    function fixxml(input, name, urn){
+        var xml = $.parseXML(input);
+        var campaign = $("campaign", xml);
+        campaign.children("campaignName").remove();
+        campaign.children("campaignUrn").remove();
+        campaign.prepend(parse("<campaignName/>").text(name))
+        campaign.prepend(parse("<campaignUrn/>").text(urn))
+        return (new XMLSerializer()).serializeToString(xml);
+    }
+
 })();
