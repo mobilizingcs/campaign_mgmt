@@ -8,7 +8,7 @@
     //attach global callbacks
     oh.callback("done", function(x, status, req){
         //for debugging only
-        console.log(x);
+        //console.log(x);
     })
 
     //global error handler. In ohmage 200 means unauthenticated
@@ -116,19 +116,39 @@
                                 $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."});
                             });
 
+                            $("input.xml-file-input").unbind("change").on("change", function(){
+                                var f = this.files[0];
+                                if(f){
+                                    var r = new FileReader();
+                                    r.onload = function(e) {
+                                        xmldata = r.result;
+                                    }
+                                    r.readAsText(f);
+                                } else {
+                                    xmldata = null;
+                                }
+                            })
+
                             $("#campaign_save_button").unbind("click").click(function(e){
                                 e.preventDefault();
                                 var btn = $(this).attr("disabled", "disabled");
                                 var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
                                 var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
-                                oh.campaign.update({
+                                var args = {
                                     campaign_urn : urn,
                                     running_state : running_state,
                                     privacy_state : privacy_state,
                                     description : $("#campaign_description").val(),
                                     class_list_remove : longdata.classes,
                                     class_list_add : $("#campaign_class").val()
-                                }).done(function(){
+                                }
+
+                                //update xml only if selected
+                                if(xmldata){
+                                    args.xml = xmldata;
+                                }
+
+                                oh.campaign.update(args).done(function(){
                                     $('#myModal').modal("hide")
                                 }).always(function(){
                                     btn.removeAttr("disabled");
