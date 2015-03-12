@@ -66,7 +66,7 @@
                         } else if(count === 0){
                             message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to visualize.")
                         } else {
-                            window.location.href = '../navbar/dashboard/#' + urn;
+                            window.location.href = '../dashboard/#' + urn;
                         }
                     });
 
@@ -174,6 +174,18 @@
                     });
                 }
             });
+
+            //creating a new campaign
+            $("#new_campaign_button").click(function(e){
+                e.preventDefault()
+                $('#myModal').modal("show")
+                $("#campaign_privacy").bootstrapSwitch("state", false);
+                $("#campaign_running").bootstrapSwitch("state", false);
+                $('#myModal').modal("show").on("shown.bs.modal", function(){
+                    $("#campaign_class").chosen({search_contains:true, no_results_text: "Class not found."});
+                    $(".xml-upload-form").fileinput();
+                });
+            })
 
             //data tables widget
             function initTable(){
