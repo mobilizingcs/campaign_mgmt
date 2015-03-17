@@ -129,6 +129,20 @@
                                 }
                             })
 
+                            $("#campaign_delete_button").unbind("click").click(function(e){
+                                e.preventDefault();
+                                var btn = $(this).attr("disabled", "disabled");
+
+                                oh.campaign.delete({campaign_urn:urn}).done(function(){
+                                    $('#myModal').modal("hide");
+                                    tr.hide("slow", function(){
+                                        alert("Campaign " + urn + " deleted!")
+                                    });
+                                }).always(function(){
+                                    btn.removeAttr("disabled");
+                                });
+                            });
+
                             $("#campaign_save_button").unbind("click").click(function(e){
                                 e.preventDefault();
                                 var btn = $(this).attr("disabled", "disabled");
