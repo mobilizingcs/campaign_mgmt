@@ -131,8 +131,13 @@
 
                             $("#campaign_delete_button").unbind("click").click(function(e){
                                 e.preventDefault();
-                                var btn = $(this).attr("disabled", "disabled");
 
+                                // test for existing responses
+                                if(count && !confirm("This campaign has " + count + " responses. Are you sure?")){
+                                    return;
+                                }
+
+                                var btn = $(this).attr("disabled", "disabled");
                                 oh.campaign.delete({campaign_urn:urn}).done(function(){
                                     $('#myModal').modal("hide");
                                     tr.hide("slow", function(){
