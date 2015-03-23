@@ -98,8 +98,12 @@
 
                             //$("#campaign_running")[0].checked = (data["running_state"] == "running");
                             //$("#campaign_privacy")[0].checked = (data["privacy_state"] == "shared");
+
+                            $("#campaign_running").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"running", offText:"stopped"})
+                            $("#campaign_privacy").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"shared", offText:"private"})
                             $("#campaign_privacy").bootstrapSwitch("state", longdata["privacy_state"] == "shared");
                             $("#campaign_running").bootstrapSwitch("state", longdata["running_state"] == "running");
+
 
                             $("#campaign_class option").each(function(i){
                                 $(this).prop("selected", $.inArray($(this).attr("value"), longdata.classes) > -1);
