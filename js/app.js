@@ -48,7 +48,7 @@
 
                     var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
 
-                    var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Surveys').attr("href", "#").click(function(e){
+                    var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", "#").click(function(e){
                         e.preventDefault();
                         if(count < 0){
                             message("Loading campaign info, please be patient.", "info")
