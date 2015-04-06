@@ -100,7 +100,7 @@
                             //$("#campaign_privacy")[0].checked = (data["privacy_state"] == "shared");
 
                             $("#campaign_running").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"running", offText:"stopped"})
-                            $("#campaign_privacy").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"shared", offText:"private"})
+                            $("#campaign_privacy").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"enabled", offText:"disabled"})
                             $("#campaign_privacy").bootstrapSwitch("state", longdata["privacy_state"] == "shared");
                             $("#campaign_running").bootstrapSwitch("state", longdata["running_state"] == "running");
 
