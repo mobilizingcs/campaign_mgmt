@@ -181,9 +181,9 @@
                     }
 
                     // Disable for current deployment because confusing?
-                    a3.hide()
-                    a4.hide()
-                    a5.hide()
+                    //a3.hide()
+                    //a4.hide()
+                    //a5.hide()
 
                     return oh.survey.count(urn).done(function(counts){
                         if(!Object.keys(counts).length){
