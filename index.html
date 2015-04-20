@@ -39,7 +39,7 @@
             <div class="row">
 
                 <div class="span12 page-header">
-                    <a href="../surveytool" id="new_campaign_button" class="pull-right btn btn-primary">Create New Campaign</a>
+                    <a href="../surveytool" id="new_campaign_button" class="pull-right btn btn-primary"><span class="glyphicon glyphicon-file"></span> Create New Campaign</a>
 
                     <!--
                       <h1>Campaign Manager</h1>
@@ -64,7 +64,7 @@
                                 <th></th>
                                 <th>Title</th>
                                 <th>Created</th>
-                                <th>State</th>
+                                <th>Status</th>
                                 <th>Responses</th>
                             </tr>
                         </thead>
@@ -128,12 +128,18 @@
 
                   <div class="form-group">
 
-                    <label for="campaign_state" class="col-sm-2 control-label">State</label>
-                    <div class="col-sm-10">
+                    <label for="campaign_state" class="col-sm-2 control-label">Status</label>
+                    <div class="col-sm-4">
                       <input id="campaign_running" type="checkbox">
+                    </div>
+ 
+
+                    <label for="campaign_state" class="col-sm-2 control-label">Sharing</label>
+                    <div class="col-sm-4">
                       <input id="campaign_privacy" type="checkbox">
                     </div>
                   </div>
+
 
                   <div class="xml-upload-form form-group">
                     <label for="campaign_class" class="col-sm-2 control-label">Survey(s)</label>
@@ -151,9 +157,9 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" id="campaign_delete_button" class="btn btn-danger pull-left">
+                <button type="button" id="campaign_delete_button" class="btn btn-danger btn-sm pull-left">
                   <span class="glyphicon glyphicon-remove"></span> Delete campaign</button>
-                <button type="button" id="campaign_save_button" class="btn btn-primary">
+                <button type="button" id="campaign_save_button" class="btn btn-sm btn-primary">
                 <span class="glyphicon glyphicon-ok"></span> Save changes</button>
               </div>
             </div>

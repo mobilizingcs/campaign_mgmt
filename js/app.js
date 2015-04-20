@@ -43,7 +43,7 @@
                     var td4 = $("<td>").appendTo(tr);
 
                     var btn = $("<div />").addClass("btn-group").append('\
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> \
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> \
                         <span class="glyphicon glyphicon glyphicon-folder-open"></span></button>').appendTo(td5);
 
                     var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
@@ -99,8 +99,8 @@
                             //$("#campaign_running")[0].checked = (data["running_state"] == "running");
                             //$("#campaign_privacy")[0].checked = (data["privacy_state"] == "shared");
 
-                            $("#campaign_running").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"running", offText:"stopped"})
-                            $("#campaign_privacy").bootstrapSwitch({onColor: "success", offColor: "danger", onText:"shared", offText:"private"})
+                            $("#campaign_running").bootstrapSwitch({size: "small", onColor: "success", offColor: "danger", onText:"running", offText:"stopped"})
+                            $("#campaign_privacy").bootstrapSwitch({size: "small", onColor: "success", offColor: "danger", onText:"enabled", offText:"disabled"})
                             $("#campaign_privacy").bootstrapSwitch("state", longdata["privacy_state"] == "shared");
                             $("#campaign_running").bootstrapSwitch("state", longdata["running_state"] == "running");
 
