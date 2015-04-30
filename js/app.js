@@ -70,6 +70,17 @@
                         }
                     });
 
+                    var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", "#").click(function(e){
+                        e.preventDefault();
+                        if(count < 0){
+                            message("Loading campaign info, please be patient.", "info")
+                        } else if(count === 0){
+                            message("Campaign <b>" + urn + "</b> has no existing responses.")
+                        } else {
+                            window.location.href = '../responsetool/#' + urn;
+                        }
+                    });                    
+
                     var a4 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-floppy-save"></span> Download XML').attr("href", "#").click(function(e){
                         e.preventDefault();
                         $("#hiddenurn").val(urn)
