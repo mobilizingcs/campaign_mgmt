@@ -30,6 +30,9 @@
             var total = 0;
             var requests = $.map(urns.sort(), function(urn, i){
                 var roles = data[urn]["user_roles"];
+
+                if(roles.length == 0) return;
+
                 var count = -1;
                 total++;
 
