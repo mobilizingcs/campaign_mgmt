@@ -48,36 +48,34 @@
 
                     var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
 
-                    var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", "#").click(function(e){
-                        e.preventDefault();
+                    var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", '../surveytool/#' + urn).click(function(e){
                         if(count < 0){
+                            e.preventDefault();
                             message("Loading campaign info, please be patient.", "info")
                         } else if(count > 0){
+                            e.preventDefault();
                             message("Campaign <strong>" + urn + "</strong> has existing responses and can therefore not be modified.")
-                        } else {
-                            window.location.href = '../surveytool/#' + urn;
                         }
                     });
 
-                    var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Visualize').attr("href", "#").click(function(e){
+                    var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Visualize').attr("href", '../dashboard/#' + urn).click(function(e){
                         e.preventDefault();
                         if(count < 0){
+                            e.preventDefault();
                             message("Loading campaign info, please be patient.", "info")
                         } else if(count === 0){
+                            e.preventDefault();
                             message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to visualize.")
-                        } else {
-                            window.location.href = '../dashboard/#' + urn;
                         }
                     });
 
-                    var responselink = $("<a />").attr("target", "_blank").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", "#").click(function(e){
-                        e.preventDefault();
+                    var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", '../responsetool/#' + urn).attr("target", "_blank").click(function(e){
                         if(count < 0){
+                            e.preventDefault();
                             message("Loading campaign info, please be patient.", "info")
                         } else if(count === 0){
+                            e.preventDefault();
                             message("Campaign <b>" + urn + "</b> has no existing responses.")
-                        } else {
-                            window.location.href = '../responsetool/#' + urn;
                         }
                     });                    
 
