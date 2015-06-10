@@ -59,7 +59,6 @@
                     });
 
                     var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Visualize').attr("href", '../dashboard/#' + urn).click(function(e){
-                        e.preventDefault();
                         if(count < 0){
                             e.preventDefault();
                             message("Loading campaign info, please be patient.", "info")
