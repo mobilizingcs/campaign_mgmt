@@ -70,7 +70,7 @@
                         }
                     });
 
-                    var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", "#").click(function(e){
+                    var responselink = $("<a />").attr("target", "_blank").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", "#").click(function(e){
                         e.preventDefault();
                         if(count < 0){
                             message("Loading campaign info, please be patient.", "info")
