@@ -207,6 +207,7 @@
                         }).reduce(function(previousValue, currentValue) {
                             return previousValue + currentValue;
                         });
+                        var sharedcount = counts.shared ? counts.shared[0].count : 0;
                     }
                     td4.text(count);
                 }).always(function(){
