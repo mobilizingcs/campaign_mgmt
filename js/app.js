@@ -5,6 +5,9 @@
     //debugging
     window.oh = oh;
 
+    //global data table
+    var table;    
+
     //attach global callbacks
     oh.callback("done", function(x, status, req){
         //for debugging only
@@ -36,15 +39,16 @@
                 var count = -1;
                 total++;
 
-                var tr = $("<tr>").appendTo("#campaigntablebody")
-                var td5 = $("<td>").appendTo(tr);
+                var tr = $("<tr>").appendTo("#campaigntablebody").data("campaigndata", data[urn]);
+                
                 var td1 = $("<td>").appendTo(tr).text(data[urn].name);
                 var td2 = $("<td>").appendTo(tr).text(data[urn].creation_timestamp);
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
                 var td4 = $("<td>").appendTo(tr);
+                var td5 = $("<td>").appendTo(tr);
 
                 var btn = $("<div />").addClass("btn-group").append('\
-                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> \
+                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> \
                     <span class="glyphicon glyphicon glyphicon-folder-open"></span></button>').appendTo(td5);
 
                 var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
@@ -217,11 +221,11 @@
 
             //data tables widget
             function initTable(){
-                $('#campaigntable').dataTable( {
+                table = $('#campaigntable').DataTable( {
                     "dom" : '<"pull-right"l><"pull-left"f>tip',
                     "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                     "aoColumnDefs": [
-                       { 'bSortable': false, 'aTargets': [ 0 ] }
+                       { 'bSortable': false, 'aTargets': [ 4 ] }
                     ]
                 });
             }
@@ -241,6 +245,23 @@
                 $(".xml-upload-form").show();
                 //$(".fileinput").fileinput("clear");
             })
+
+            //expand function
+            $('#campaigntable').on('click', 'tbody tr', function () {
+                var tr = $(this)
+                var row = table.row(tr);
+                if(tr.attr("role") != "row") return;
+         
+                if ( row.child.isShown() ) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                } else {
+                    // Open this row
+                    row.child( makerow(row.data(), tr.data("campaigndata"))).show();
+                    tr.addClass('shown');
+                }
+            });            
         });
 
         //get users
@@ -286,6 +307,10 @@
         campaign.prepend(parse("<campaignName/>").text(name))
         campaign.prepend(parse("<campaignUrn/>").text(urn))
         return (new XMLSerializer()).serializeToString(xml);
+    }
+
+    function makerow(rowdata, survey){
+        return "<p>Foo</p>"
     }
 
 })();
