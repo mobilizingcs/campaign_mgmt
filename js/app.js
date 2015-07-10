@@ -52,18 +52,21 @@
 
                 var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
 
-                if($.inArray("author", roles) > -1 || $.inArray("supervisor", roles) > -1) {
 
-                    var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", '../surveytool/#' + urn).click(function(e){
-                        if(count < 0){
-                            e.preventDefault();
-                            message("Loading campaign info, please be patient.", "info")
-                        } else if(count > 0){
-                            e.preventDefault();
-                            message("Campaign <strong>" + urn + "</strong> has existing responses and can therefore not be modified.")
-                        }
-                    });
-                }
+
+                var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", '../surveytool/#' + urn).click(function(e){
+                    if(count < 0){
+                        e.preventDefault();
+                        message("Loading campaign info, please be patient.", "info")
+                    } else if($.inArray("author", roles) < 0 && $.inArray("supervisor", roles) < 0) {
+                        e.preventDefault()
+                        message("You do not have permission to modify campaign <strong>" + urn + "</strong>.")
+                    } else if(count > 0){
+                        e.preventDefault();
+                        message("Campaign <strong>" + urn + "</strong> has existing responses and can therefore not be modified.")
+                    }
+                });
+
 
                 var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Visualize').attr("href", '../dashboard/#' + urn).click(function(e){
                     if(count < 0){
