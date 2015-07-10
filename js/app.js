@@ -47,8 +47,8 @@
                 var td5 = $("<td>").appendTo(tr);
 
                 var btn = $("<div />").addClass("btn-group").append('\
-                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> \
-                    <span class="glyphicon glyphicon glyphicon-folder-open"> Action</span></button>').appendTo(td5);
+                    <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown"> \
+                    <span class="caret"></span></button>').appendTo(td5);
 
                 var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
 
@@ -100,6 +100,11 @@
                     e.preventDefault();
                     populateModal();
                 });
+
+                //add a default action
+                var defaultbtn = $('<button type="button" class="btn btn-default btn-sm" />').html(a3.html()).click(function(e){
+                    a3[0].click();
+                }).prependTo(btn);
 
                 function populateModal(){
                     oh.campaign.readall({
