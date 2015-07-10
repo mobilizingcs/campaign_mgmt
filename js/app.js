@@ -83,8 +83,12 @@
                         e.preventDefault();
                         message("Campaign <b>" + urn + "</b> has no existing responses.")
                     }
-                });                    
+                });  
 
+                ul.append($("<li >").addClass('divider')) 
+
+                var a6 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-eye-open"></span> Monitor').attr("href", "../monitor/#" + urn);
+ 
                 var a4 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-floppy-save"></span> Download XML').attr("href", "#").click(function(e){
                     e.preventDefault();
                     $("#hiddenurn").val(urn)
