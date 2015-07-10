@@ -40,7 +40,6 @@
                 total++;
 
                 var tr = $("<tr>").appendTo("#campaigntablebody").data("campaigndata", data[urn]);
-                
                 var td1 = $("<td>").appendTo(tr).text(data[urn].name);
                 var td2 = $("<td>").appendTo(tr).text(data[urn].creation_timestamp);
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
@@ -49,7 +48,7 @@
 
                 var btn = $("<div />").addClass("btn-group").append('\
                     <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"> \
-                    <span class="glyphicon glyphicon glyphicon-folder-open"></span></button>').appendTo(td5);
+                    <span class="glyphicon glyphicon glyphicon-folder-open"> Action</span></button>').appendTo(td5);
 
                 var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
 
