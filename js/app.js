@@ -245,6 +245,8 @@
                 //$(".fileinput").fileinput("clear");
             })
 
+            /*
+
             //expand function
             $('#campaigntable').on('click', 'tbody tr', function () {
                 var tr = $(this)
@@ -260,7 +262,9 @@
                     row.child( makerow(row.data(), tr.data("campaigndata"))).show();
                     tr.addClass('shown');
                 }
-            });            
+            });  
+
+            */          
         });
 
         //get users
@@ -306,10 +310,6 @@
         campaign.prepend(parse("<campaignName/>").text(name))
         campaign.prepend(parse("<campaignUrn/>").text(urn))
         return (new XMLSerializer()).serializeToString(xml);
-    }
-
-    function makerow(rowdata, survey){
-        return "<p>Foo</p>"
     }
 
 })();
