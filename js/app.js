@@ -44,15 +44,13 @@
                 var td2 = $("<td>").appendTo(tr).text(data[urn].creation_timestamp);
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
                 var td4 = $("<td>").appendTo(tr);
-                var td5 = $("<td>").appendTo(tr);
+                var td5 = $("<td>").addClass("buttontd").appendTo(tr);
 
                 var btn = $("<div />").addClass("btn-group").append('\
                     <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown"> \
                     <span class="caret"></span></button>').appendTo(td5);
 
                 var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
-
-
 
                 var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", '../surveytool/#' + urn).click(function(e){
                     if(count < 0){
@@ -257,11 +255,9 @@
                 //$(".fileinput").fileinput("clear");
             })
 
-            /*
-
             //expand function
-            $('#campaigntable').on('click', 'tbody tr', function () {
-                var tr = $(this)
+            $('#campaigntable').on('click', "tbody td:not('.buttontd')", function () {
+                var tr = $(this).parent()
                 var row = table.row(tr);
                 if(tr.attr("role") != "row") return;
          
@@ -274,9 +270,7 @@
                     row.child( makerow(row.data(), tr.data("campaigndata"))).show();
                     tr.addClass('shown');
                 }
-            });  
-
-            */          
+            });          
         });
 
         //get users
@@ -322,6 +316,12 @@
         campaign.prepend(parse("<campaignName/>").text(name))
         campaign.prepend(parse("<campaignUrn/>").text(urn))
         return (new XMLSerializer()).serializeToString(xml);
+    }
+
+    function makerow(rowdata, campaign) {
+        var row = $('<div/>').addClass('row').addClass("response-row");
+        row.text("foo")
+        return row;
     }
 
 })();
