@@ -66,16 +66,13 @@
                     }
                 });
 
-
-                var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Visualize').attr("href", '../dashboard/#' + urn).click(function(e){
-                    if(count < 0){
-                        e.preventDefault();
-                        message("Loading campaign info, please be patient.", "info")
-                    } else if(count === 0){
-                        e.preventDefault();
-                        message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to visualize.")
-                    }
+                var a4 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-floppy-save"></span> Download XML').attr("href", "#").click(function(e){
+                    e.preventDefault();
+                    $("#hiddenurn").val(urn)
+                    $("#hiddenform").submit()
                 });
+
+                ul.append($("<li >").addClass('divider')) 
 
                 var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", "/#" + encodeURIComponent('responsetool/#' + urn)).attr("target", "_blank").click(function(e){
                     if(count < 0){
@@ -87,20 +84,33 @@
                     }
                 });  
 
-                ul.append($("<li >").addClass('divider')) 
-
-                var a6 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-eye-open"></span> Monitor').attr("href", "../monitor/#" + urn);
- 
-                var a4 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-floppy-save"></span> Download XML').attr("href", "#").click(function(e){
-                    e.preventDefault();
-                    $("#hiddenurn").val(urn)
-                    $("#hiddenform").submit()
+                var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Visualize').attr("href", '../dashboard/#' + urn).click(function(e){
+                    if(count < 0){
+                        e.preventDefault();
+                        message("Loading campaign info, please be patient.", "info")
+                    } else if(count === 0){
+                        e.preventDefault();
+                        message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to visualize.")
+                    }
                 });
+
+                var a7 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-blackboard"></span> Plot').attr("href", '../plotapp/#' + urn).click(function(e){
+                    if(count < 0){
+                        e.preventDefault();
+                        message("Loading campaign info, please be patient.", "info")
+                    } else if(count === 0){
+                        e.preventDefault();
+                        message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to plot.")
+                    }
+                });                
 
                 var a5 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-file"></span> Export Data')
                     .attr("href", "../../app/survey_response/read?campaign_urn=" + urn + "&privacy_state=shared&client=manager&user_list=urn:ohmage:special:all&prompt_id_list=urn:ohmage:special:all&output_format=csv&sort_oder=timestamp&column_list=urn:ohmage:user:id,urn:ohmage:context:timestamp,urn:ohmage:prompt:response,urn:ohmage:context:location:latitude,urn:ohmage:context:location:longitude&suppress_metadata=true")
 
-                ul.append($("<li >").addClass('divider'))
+                ul.append($("<li >").addClass('divider'));
+
+                var a6 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-eye-open"></span> Monitor').attr("href", "../monitor/#" + urn);
+
 
                 var a1 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-cog"></span> Settings').attr("href", "#").click(function(e){
                     e.preventDefault();
