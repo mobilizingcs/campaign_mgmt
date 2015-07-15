@@ -32,6 +32,7 @@
             var progress = 0;
             var total = 0;
             var requests = $.map(urns.sort(), function(urn, i){
+                data[urn].urn = urn;
                 var roles = data[urn]["user_roles"];
 
                 //if(roles.length == 0) return;
@@ -320,7 +321,9 @@
 
     function makerow(rowdata, campaign) {
         var row = $('<div/>').addClass('row').addClass("response-row");
-        row.text("foo")
+        $("<h5>").text(campaign.urn).appendTo(row);
+        var p = $("<p />").appendTo(row).html("<i>" + (campaign.description || "No description.") + "</i>")
+        console.log(campaign)
         return row;
     }
 
