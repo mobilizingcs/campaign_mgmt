@@ -117,9 +117,24 @@
                     populateModal();
                 });
 
+
+                //maps the url hash to a default app
+                var appmap = {
+                    settings : a1,
+                    edit : a2,
+                    visualize : a3,
+                    download : a4,
+                    export : a5,
+                    monitor: a6,
+                    plot : a7,
+                    responses : responselink
+                }
+
                 //add a default action
-                var defaultbtn = $('<button type="button" class="btn btn-default btn-sm" />').html(a3.html()).click(function(e){
-                    a3[0].click();
+                var hashval = window.location.hash.replace(/^[#]/, "");
+                var link = appmap[hashval] || responses;
+                var defaultbtn = $('<button type="button" class="btn btn-default btn-sm" />').html(link.html()).click(function(e){
+                    link[0].click();
                 }).prependTo(btn);
 
                 function populateModal(){
