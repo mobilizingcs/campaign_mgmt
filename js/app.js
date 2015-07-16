@@ -2,6 +2,11 @@
     //initiate the client
     var oh = Ohmage("/app", "campaign-manager")
 
+    //refresh the page when the hash changes
+    window.onhashchange = function(){
+        window.location.reload();
+    }
+
     //debugging
     window.oh = oh;
 
