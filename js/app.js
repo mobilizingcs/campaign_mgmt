@@ -132,7 +132,7 @@
 
                 //add a default action
                 var hashval = window.location.hash.replace(/^[#]/, "");
-                var link = appmap[hashval] || responses;
+                var link = appmap[hashval] || responselink;
                 var defaultbtn = $('<button type="button" class="btn btn-default btn-sm" />').html(link.html()).click(function(e){
                     link[0].click();
                 }).prependTo(btn);
