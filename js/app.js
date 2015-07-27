@@ -269,6 +269,28 @@
                        { 'bSortable': false, 'aTargets': [ 4 ] }
                     ]
                 });
+
+                /* Custom filtering function which will search data in column four between two values */
+                $.fn.dataTable.ext.search.push(
+                    function( settings, data, dataIndex ) {
+                        var time = Date.parse(data[1].replace(" ", "T"));
+                        var min = Date.parse($("#mindate").val());
+                        if (min && time && time < min) return false;
+
+                        var max = Date.parse($("#maxdate").val() + "T23:55");
+                        if (max && time && time > max) return false;
+                        
+                        return true;
+                    }
+                );
+
+                $('.datepicker').text("").datepicker({
+                    format: 'yyyy-mm-dd',
+                    autoclose: true,
+                    clearBtn: true
+                }).change( function() {
+                    table.draw();
+                });                
             }
 
             //init temporary datatable
