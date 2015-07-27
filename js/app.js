@@ -79,7 +79,7 @@
 
                 ul.append($("<li >").addClass('divider')) 
 
-                var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", "/#" + 'responsetool/#' + urn).attr("target", "_blank").click(function(e){
+                var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", "/#" + 'responsetool/#' + urn).click(function(e){
                     if(count < 0){
                         e.preventDefault();
                         message("Loading campaign info, please be patient.", "info")
@@ -354,7 +354,14 @@
         var row = $('<div/>').addClass('row').addClass("response-row");
         $("<h5>").text(campaign.urn).appendTo(row);
         var p = $("<p />").appendTo(row).html("<i>" + (campaign.description || "No description.") + "</i>")
-        console.log(campaign)
+        var p2 = $("<p />").appendTo(row).text("loading...")
+        oh.campaign.readall({
+            campaign_urn_list : campaign.urn,
+            output_format:"long"
+        }).done(function(x){
+            var campaigndata = x[campaign.urn];
+            p2.text("Classes: " + campaigndata.classes.join(", "));
+        });
         return row;
     }
 
