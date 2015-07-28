@@ -79,7 +79,7 @@
 
                 ul.append($("<li >").addClass('divider')) 
 
-                var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", "/#" + 'responsetool/#' + urn).click(function(e){
+                var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", '../responsetool/#' + urn).click(function(e){
                     if(count < 0){
                         e.preventDefault();
                         message("Loading campaign info, please be patient.", "info")
