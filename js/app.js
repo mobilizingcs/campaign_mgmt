@@ -7,6 +7,8 @@
         window.location.reload();
     }
 
+    var class_names = {};
+
     //debugging
     window.oh = oh;
 
@@ -28,7 +30,12 @@
     oh.keepalive();
 
     //get data
-    oh.user.whoami().done(function(username){
+    oh.user.info().done(function(userdata){
+        var username = Object.keys(userdata)[0];
+        class_names = userdata[username].classes;
+        $.each( Object.keys(class_names).sort(), function( i, class_urn ) {
+            $("#class_select").append($("<option />").text(class_names[class_urn]).val(class_urn));
+        });
         updateProgress(10)
         oh.campaign.readall().done(function(data){
             updateProgress(15)
@@ -51,6 +58,7 @@
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
                 var td4 = $("<td>").appendTo(tr);
                 var td5 = $("<td>").addClass("buttontd").appendTo(tr);
+                var td6 = $("<td>").appendTo(tr).text(data[urn].classes.join(", "))
 
                 var btn = $("<div />").addClass("btn-group").append('\
                     <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown"> \
@@ -116,12 +124,10 @@
 
                 var a6 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-eye-open"></span> Monitor').attr("href", "../monitor/#" + urn);
 
-
                 var a1 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-cog"></span> Settings').attr("href", "#").click(function(e){
                     e.preventDefault();
                     populateModal();
                 });
-
 
                 //maps the url hash to a default app
                 var appmap = {
@@ -237,11 +243,6 @@
                     });
                 }
 
-                // Disable for current deployment because confusing?
-                //a3.hide()
-                //a4.hide()
-                //a5.hide()
-
                 return oh.survey.count(urn).done(function(counts){
                     if(!Object.keys(counts).length){
                         //no existing responses found
@@ -266,11 +267,13 @@
                     "dom" : '<"pull-right"l><"pull-left"f>tip',
                     "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                     "aoColumnDefs": [
-                       { 'bSortable': false, 'aTargets': [ 4 ] }
+                       { 'bSortable': false, 'aTargets' : [ 4 ] },
+                       { 'bSearchable': false, 'aTargets': [ 3, 4 ] },
+                       { 'bVisible' : false, 'aTargets' : [ 5 ] } 
                     ]
                 });
 
-                /* Custom filtering function which will search data in column four between two values */
+                /* Custom filtering by date range */
                 $.fn.dataTable.ext.search.push(
                     function( settings, data, dataIndex ) {
                         var time = Date.parse(data[1].replace(" ", "T"));
@@ -287,13 +290,27 @@
                     }
                 );
 
+                /* Custom filtering by class */
+                $.fn.dataTable.ext.search.push(
+                    function( settings, data, dataIndex ) {
+                        var selected_class = $("#class_select").val();
+                        if(!selected_class) return true;
+                        var classes = data[5].split(", ");
+                        return (classes.indexOf(selected_class) >= 0)
+                    }
+                );
+
                 $('.datepicker').text("").datepicker({
                     format: 'yyyy-mm-dd',
                     autoclose: true,
                     clearBtn: true
                 }).change( function() {
                     table.draw();
-                });                
+                });
+
+                $("#class_select").change(function(){
+                    table.draw();
+                })          
             }
 
             //init temporary datatable
@@ -379,14 +396,7 @@
         var row = $('<div/>').addClass('row').addClass("response-row");
         $("<h5>").text(campaign.urn).appendTo(row);
         var p = $("<p />").appendTo(row).html("<i>" + (campaign.description || "No description.") + "</i>")
-        var p2 = $("<p />").appendTo(row).text("loading...")
-        oh.campaign.readall({
-            campaign_urn_list : campaign.urn,
-            output_format:"long"
-        }).done(function(x){
-            var campaigndata = x[campaign.urn];
-            p2.text("Classes: " + campaigndata.classes.join(", "));
-        });
+        var p2 = $("<p />").appendTo(row).html("<i>" + (campaign.classes || "No Classes.") + "</i>")
         return row;
     }
 
