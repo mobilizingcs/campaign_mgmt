@@ -58,7 +58,7 @@
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
                 var td4 = $("<td>").appendTo(tr);
                 var td5 = $("<td>").addClass("buttontd").appendTo(tr);
-                var td6 = $("<td>").appendTo(tr).text(data[urn].classes.join(", "))
+                var td6 = $("<td>").appendTo(tr).text("" + data[urn].classes)
 
                 var btn = $("<div />").addClass("btn-group").append('\
                     <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown"> \
@@ -295,7 +295,7 @@
                     function( settings, data, dataIndex ) {
                         var selected_class = $("#class_select").val();
                         if(!selected_class) return true;
-                        var classes = data[5].split(", ");
+                        var classes = data[5].split(",");
                         return (classes.indexOf(selected_class) >= 0)
                     }
                 );
