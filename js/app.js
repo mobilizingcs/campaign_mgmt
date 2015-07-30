@@ -137,7 +137,7 @@
                     download : a4,
                     export : a5,
                     monitor: a6,
-                    plot : a7,
+                    plotapp : a7,
                     responses : responselink
                 }
 
