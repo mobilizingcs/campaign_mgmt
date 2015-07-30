@@ -97,7 +97,7 @@
                     }
                 });  
 
-                var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Visualize').attr("href", '../dashboard/#' + urn).click(function(e){
+                var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Dashboard').attr("href", '../dashboard/#' + urn).click(function(e){
                     if(count < 0){
                         e.preventDefault();
                         message("Loading campaign info, please be patient.", "info")
@@ -107,7 +107,7 @@
                     }
                 });
 
-                var a7 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-blackboard"></span> Plot').attr("href", '../plotapp/#' + urn).click(function(e){
+                var a7 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-blackboard"></span> PlotApp').attr("href", '../plotapp/#' + urn).click(function(e){
                     if(count < 0){
                         e.preventDefault();
                         message("Loading campaign info, please be patient.", "info")
@@ -133,7 +133,7 @@
                 var appmap = {
                     settings : a1,
                     edit : a2,
-                    visualize : a3,
+                    dashboard : a3,
                     download : a4,
                     export : a5,
                     monitor: a6,
