@@ -250,16 +250,17 @@
                 return oh.survey.count(urn).done(function(counts){
                     if(!Object.keys(counts).length){
                         //no existing responses found
-                        count = 0;
+                        var count = 0;
                     } else {
-                        count = $.map(counts, function(val, key) {
+                        var count = $.map(counts, function(val, key) {
                             return val[0].count;
                         }).reduce(function(previousValue, currentValue) {
                             return previousValue + currentValue;
                         });
-                        var sharedcount = counts.shared ? counts.shared[0].count : 0;
                     }
-                    td4.text(count);
+                    var sharedcount = counts.shared ? counts.shared[0].count : 0;
+                    td4.attr("data-sort", sharedcount);
+                    td4.text(sharedcount + " / " + count);
                 }).always(function(){
                     updateProgress((progress++/total) * 75 + 25);
                 });
