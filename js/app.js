@@ -259,7 +259,7 @@
                         });
                     }
                     var sharedcount = counts.shared ? counts.shared[0].count : 0;
-                    td4.attr("data-sort", sharedcount);
+                    td4.attr("data-sort", sharedcount * 100000 + count);
                     td4.text(sharedcount + " / " + count);
                 }).always(function(){
                     updateProgress((progress++/total) * 75 + 25);
