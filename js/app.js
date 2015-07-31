@@ -56,6 +56,9 @@
                 var tr = $("<tr>").appendTo("#campaigntablebody").data("campaigndata", data[urn]);
                 var td1 = $("<td>").appendTo(tr).text(data[urn].name);
                 var td2 = $("<td>").appendTo(tr).text(data[urn].creation_timestamp);
+
+                $("<td>").appendTo(tr).text(data[urn].author_list);
+
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
                 var td4 = $("<td>").appendTo(tr);
                 var td5 = $("<td>").addClass("buttontd").appendTo(tr);
@@ -268,9 +271,9 @@
                     "dom" : '<"pull-right"l><"pull-left"f>tip',
                     "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                     "aoColumnDefs": [
-                       { 'bSortable': false, 'aTargets' : [ 4 ] },
-                       { 'bSearchable': false, 'aTargets': [ 3, 4 ] },
-                       { 'bVisible' : false, 'aTargets' : [ 5 ] } 
+                       { 'bSortable': false, 'aTargets' : [ 5 ] },
+                       { 'bSearchable': false, 'aTargets': [ 4, 5 ] },
+                       { 'bVisible' : false, 'aTargets' : [ 6 ] } 
                     ]
                 });
 
@@ -296,7 +299,7 @@
                     function( settings, data, dataIndex ) {
                         var selected_class = $("#class_select").val();
                         if(!selected_class) return true;
-                        var classes = data[5].split(",");
+                        var classes = data[6].split(",");
                         return (classes.indexOf(selected_class) >= 0)
                     }
                 );
