@@ -61,6 +61,8 @@
 
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
                 var td4 = $("<td>").appendTo(tr);
+                var td_total_count = $("<td>").appendTo(tr);
+
                 var td5 = $("<td>").addClass("buttontd").appendTo(tr);
                 var td6 = $("<td>").appendTo(tr).text("" + data[urn].classes)
 
@@ -259,8 +261,10 @@
                         });
                     }
                     var sharedcount = counts.shared ? counts.shared[0].count : 0;
-                    td4.attr("data-sort", sharedcount * 100000 + count);
-                    td4.text(sharedcount + " / " + count);
+                    //td4.attr("data-sort", sharedcount * 100000 + count);
+                    //td4.text(sharedcount + " / " + count);
+                    td4.text(sharedcount);
+                    td_total_count.text(count)
                 }).always(function(){
                     updateProgress((progress++/total) * 75 + 25);
                 });
@@ -272,9 +276,9 @@
                     "dom" : '<"pull-right"l><"pull-left"f>tip',
                     "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                     "aoColumnDefs": [
-                       { 'bSortable': false, 'aTargets' : [ 2, 5, 6 ] },
-                       { 'bSearchable': false, 'aTargets': [ 4, 5 ] },
-                       { 'bVisible' : false, 'aTargets' : [ 2, 6 ] } 
+                       { 'bSortable': false, 'aTargets' : [ 2, 6, 7 ] },
+                       { 'bSearchable': false, 'aTargets': [ 4, 5, 6 ] },
+                       { 'bVisible' : false, 'aTargets' : [ 2, 7 ] } 
                     ]
                 });
 
@@ -300,7 +304,7 @@
                     function( settings, data, dataIndex ) {
                         var selected_class = $("#class_select").val();
                         if(!selected_class) return true;
-                        var classes = data[6].split(",");
+                        var classes = data[7].split(",");
                         return (classes.indexOf(selected_class) >= 0)
                     }
                 );
