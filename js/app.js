@@ -252,9 +252,9 @@
                 return oh.survey.count(urn).done(function(counts){
                     if(!Object.keys(counts).length){
                         //no existing responses found
-                        var count = 0;
+                        count = 0;
                     } else {
-                        var count = $.map(counts, function(val, key) {
+                        count = $.map(counts, function(val, key) {
                             return val[0].count;
                         }).reduce(function(previousValue, currentValue) {
                             return previousValue + currentValue;
