@@ -278,7 +278,7 @@
                     "aoColumnDefs": [
                        { 'bSortable': false, 'aTargets' : [ 2, 6, 7 ] },
                        { 'bSearchable': false, 'aTargets': [ 4, 5, 6 ] },
-                       { 'bVisible' : false, 'aTargets' : [ 2, 7 ] } 
+                       { 'bVisible' : false, 'aTargets' : [ 2 ] } 
                     ]
                 });
 
@@ -406,7 +406,7 @@
         makep("ID", campaign.urn).appendTo(row);
         makep("Name", campaign.name).appendTo(row);
         makep("Description", campaign.description || "No description.").appendTo(row);
-        makep("Classes", $.map(campaign.classes, function(x){return class_names[x];}).join(", ") || "No Classes.").appendTo(row);
+        makep("Classes", $.map(campaign.classes, function(x){return class_names[x] || x;}).join(", ") || "No Classes.").appendTo(row);
         makep("Authors", campaign.author_list).appendTo(row);
         makep("Running", campaign.running_state).appendTo(row);
         makep("Privacy", campaign.privacy_state).appendTo(row);
