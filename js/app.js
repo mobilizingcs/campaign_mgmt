@@ -278,7 +278,7 @@
                     "aoColumnDefs": [
                        { 'bSortable': false, 'aTargets' : [ 2, 6, 7 ] },
                        { 'bSearchable': false, 'aTargets': [ 4, 5, 6 ] },
-                       { 'bVisible' : false, 'aTargets' : [ 2 ] } 
+                       { 'bVisible' : false, 'aTargets' : [ 2, 7 ] } 
                     ]
                 });
 
