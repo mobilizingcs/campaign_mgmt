@@ -403,10 +403,21 @@
 
     function makerow(rowdata, campaign) {
         var row = $('<div/>').addClass('row').addClass("response-row");
-        $("<h5>").text(campaign.urn).appendTo(row);
-        var p = $("<p />").appendTo(row).html("<i>" + (campaign.description || "No description.") + "</i>")
-        var p2 = $("<p />").appendTo(row).html("<i>" + (campaign.classes || "No Classes.") + "</i>")
+        makep("ID", campaign.urn).appendTo(row);
+        makep("Name", campaign.name).appendTo(row);
+        makep("Description", campaign.description || "No description.").appendTo(row);
+        makep("Classes", $.map(campaign.classes, function(x){return class_names[x];}).join(", ") || "No Classes.").appendTo(row);
+        makep("Authors", campaign.author_list).appendTo(row);
+        makep("Running", campaign.running_state).appendTo(row);
+        makep("Privacy", campaign.privacy_state).appendTo(row);
         return row;
+    }
+
+    function makep(type, content){
+        var p = $("<p/>")
+        $("<strong/>").text(type + ": ").appendTo(p);
+        $("<i/>").text(content).appendTo(p);
+        return p;
     }
 
 })();
