@@ -57,7 +57,7 @@
                 var td1 = $("<td>").appendTo(tr).text(data[urn].name);
                 var td2 = $("<td>").appendTo(tr).text(data[urn].creation_timestamp);
 
-                $("<td>").appendTo(tr).text(data[urn].author_list);
+                $("<td>").appendTo(tr).text(data[urn].author_list.join(", "));
 
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
                 var td4 = $("<td>").appendTo(tr);
@@ -273,7 +273,7 @@
                     "aoColumnDefs": [
                        { 'bSortable': false, 'aTargets' : [ 5 ] },
                        { 'bSearchable': false, 'aTargets': [ 4, 5 ] },
-                       { 'bVisible' : false, 'aTargets' : [ 6 ] } 
+                       { 'bVisible' : false, 'aTargets' : [ 2, 6 ] } 
                     ]
                 });
 
