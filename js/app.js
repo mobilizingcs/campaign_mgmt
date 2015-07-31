@@ -271,7 +271,7 @@
                     "dom" : '<"pull-right"l><"pull-left"f>tip',
                     "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
                     "aoColumnDefs": [
-                       { 'bSortable': false, 'aTargets' : [ 5 ] },
+                       { 'bSortable': false, 'aTargets' : [ 2, 5, 6 ] },
                        { 'bSearchable': false, 'aTargets': [ 4, 5 ] },
                        { 'bVisible' : false, 'aTargets' : [ 2, 6 ] } 
                     ]
