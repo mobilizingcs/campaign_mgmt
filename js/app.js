@@ -71,7 +71,7 @@
                     if(count < 0){
                         e.preventDefault();
                         message("Loading campaign info, please be patient.", "info")
-                    } else if(user_is_admin || $.inArray("author", roles) < 0 && $.inArray("supervisor", roles) < 0) {
+                    } else if(!user_is_admin && $.inArray("author", roles) < 0 && $.inArray("supervisor", roles) < 0) {
                         e.preventDefault()
                         message("You do not have permission to modify campaign <strong>" + urn + "</strong>.")
                     } else if(count > 0){
