@@ -366,7 +366,7 @@
         //get classes
         oh.class.read().done(function(x){
             $.each(Object.keys(x).sort(), function( i, urn ) {
-                $("#campaign_class").append($("<option />").text(urn).attr("value", urn));
+                $("#campaign_class").append($("<option />").text(x[urn].name || urn).attr("value", urn));
             });
         });
     });
