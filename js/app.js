@@ -72,7 +72,7 @@
 
                 var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
 
-                var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", '../surveytool/#' + urn).click(function(e){
+                var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", '../author/#' + urn).click(function(e){
                     if(count < 0){
                         e.preventDefault();
                         message("Loading campaign info, please be patient.", "info")
@@ -93,7 +93,7 @@
 
                 ul.append($("<li >").addClass('divider')) 
 
-                var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", '../responsetool/#' + urn).click(function(e){
+                var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", '../responses/#' + urn).click(function(e){
                     if(count < 0){
                         e.preventDefault();
                         message("Loading campaign info, please be patient.", "info")
