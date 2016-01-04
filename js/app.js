@@ -76,13 +76,16 @@
                     if(count < 0){
                         e.preventDefault();
                         message("Loading campaign info, please be patient.", "info")
-                    } else if(!user_is_admin && $.inArray("author", roles) < 0 && $.inArray("supervisor", roles) < 0) {
+                    }
+                    /*** We now allow for read-only use of the author tool
+                    else if(!user_is_admin && $.inArray("author", roles) < 0 && $.inArray("supervisor", roles) < 0) {
                         e.preventDefault()
                         message("You do not have permission to modify campaign <strong>" + urn + "</strong>.")
                     } else if(count > 0){
                         e.preventDefault();
                         message("Campaign <strong>" + urn + "</strong> has existing responses and can therefore not be modified.")
                     }
+                    */
                 });
 
                 var a4 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-floppy-save"></span> Download XML').attr("href", "#").click(function(e){
