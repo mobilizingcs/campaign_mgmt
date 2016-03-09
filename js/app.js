@@ -29,6 +29,13 @@
     //prevent timeout
     oh.keepalive();
 
+    //hide stuff for mobilize
+    oh.config.read().done(function(config){
+        if(config.application_name == "mobilize"){
+            $(".nomobilize").hide();
+        }
+    });
+
     //get data
     oh.user.info().done(function(userdata){
         var username = Object.keys(userdata)[0];
