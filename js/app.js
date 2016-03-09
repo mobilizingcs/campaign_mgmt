@@ -173,8 +173,12 @@
 
                         $("#campaign_running").bootstrapSwitch({size: "small", onColor: "success", offColor: "danger", onText:"running", offText:"stopped"})
                         $("#campaign_privacy").bootstrapSwitch({size: "small", onColor: "success", offColor: "danger", onText:"enabled", offText:"disabled"})
-                        $("#campaign_privacy").bootstrapSwitch("state", longdata["privacy_state"] == "shared");
+                        $("#campaign_editable").bootstrapSwitch({size: "small", onColor: "success", offColor: "danger", onText:"enabled", offText:"disabled"})
+
+                        //populate state
                         $("#campaign_running").bootstrapSwitch("state", longdata["running_state"] == "running");
+                        $("#campaign_privacy").bootstrapSwitch("state", longdata["privacy_state"] == "shared");
+                        $("#campaign_editable").bootstrapSwitch("state", longdata["editable"]);
 
                         $("#campaign_class option").each(function(i){
                             $(this).prop("selected", $.inArray($(this).attr("value"), longdata.classes) > -1);
@@ -228,10 +232,12 @@
                             var btn = $(this).attr("disabled", "disabled");
                             var running_state = $("#campaign_running")[0].checked ? "running" : "stopped";
                             var privacy_state = $("#campaign_privacy")[0].checked ? "shared" : "private";
+                            var editable = $("#campaign_editable")[0].checked
                             var args = {
                                 campaign_urn : urn,
                                 running_state : running_state,
                                 privacy_state : privacy_state,
+                                editable : editable,
                                 description : $("#campaign_description").val(),
                                 class_list_remove : longdata.classes,
                                 class_list_add : $("#campaign_class").val()
