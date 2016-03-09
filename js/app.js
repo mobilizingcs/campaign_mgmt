@@ -13,7 +13,7 @@
     window.oh = oh;
 
     //global data table
-    var table;    
+    var table;
 
     //attach global callbacks
     oh.callback("done", function(x, status, req){
@@ -94,7 +94,7 @@
                     $("#hiddenform").submit()
                 });
 
-                ul.append($("<li >").addClass('divider')) 
+                ul.append($("<li >").addClass('divider'))
 
                 var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", '../responses/#' + urn).click(function(e){
                     if(count < 0){
@@ -104,7 +104,7 @@
                         e.preventDefault();
                         message("Campaign <b>" + urn + "</b> has no existing responses.")
                     }
-                });  
+                });
 
                 var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Dashboard').attr("href", '../dashboard/#' + urn).click(function(e){
                     if(count < 0){
@@ -124,7 +124,7 @@
                         e.preventDefault();
                         message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to plot.")
                     }
-                });                
+                });
 
                 var a5 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-file"></span> Export Data')
                     .attr("href", "../../app/survey_response/read?campaign_urn=" + urn + "&privacy_state=shared&client=manager&user_list=urn:ohmage:special:all&prompt_id_list=urn:ohmage:special:all&output_format=csv&sort_oder=timestamp&column_list=urn:ohmage:user:id,urn:ohmage:context:timestamp,urn:ohmage:prompt:response,urn:ohmage:context:location:latitude,urn:ohmage:context:location:longitude&suppress_metadata=true")
@@ -281,7 +281,7 @@
                     "aoColumnDefs": [
                        { 'bSortable': false, 'aTargets' : [ 2, 6, 7 ] },
                        { 'bSearchable': false, 'aTargets': [ 4, 5, 6 ] },
-                       { 'bVisible' : false, 'aTargets' : [ 2, 7 ] } 
+                       { 'bVisible' : false, 'aTargets' : [ 2, 7 ] }
                     ]
                 });
 
@@ -297,7 +297,7 @@
                         var maxtxt = $("#maxdate").val();
                         var max = Date.parse(maxtxt + "T23:55");
                         if (maxtxt && max && time > max) return false;
-                        
+
                         return true;
                     }
                 );
@@ -322,7 +322,7 @@
 
                 $("#class_select").change(function(){
                     table.draw();
-                })          
+                })
             }
 
             //init temporary datatable
@@ -346,7 +346,7 @@
                 var tr = $(this).parent()
                 var row = table.row(tr);
                 if(tr.attr("role") != "row") return;
-         
+
                 if ( row.child.isShown() ) {
                     // This row is already open - close it
                     row.child.hide();
@@ -356,7 +356,7 @@
                     row.child( makerow(row.data(), tr.data("campaigndata"))).show();
                     tr.addClass('shown');
                 }
-            });          
+            });
         });
 
         //get users
@@ -415,6 +415,7 @@
         makep("Authors", campaign.author_list).appendTo(col2);
         makep("Running", campaign.running_state).appendTo(col2);
         makep("Privacy", campaign.privacy_state).appendTo(col2);
+        makep("Editable", campaign.editable).appendTo(col2);
         return row;
     }
 
