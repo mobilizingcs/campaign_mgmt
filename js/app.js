@@ -45,21 +45,16 @@
             $("#class_select").append($("<option />").text(class_names[class_urn]).val(class_urn));
         });
         updateProgress(10)
-        oh.campaign.readall().done(function(data){
+        oh.campaign.readall({"output_format" : "long"}).done(function(data){
             updateProgress(15)
             $("#progressdiv").removeClass("hidden");
             var urns = Object.keys(data);
             var progress = 0;
-            var total = 0;
-            var requests = $.map(urns.sort(), function(urn, i){
+            $.map(urns.sort(), function(urn, i){
                 data[urn].urn = urn;
                 var roles = data[urn]["user_roles"];
-
-                //if(roles.length == 0) return;
-
-                var count = -1;
-                total++;
-
+                var response_count = data[urn]["survey_response_count"] || {};
+                var count = response_count.shared + response_count.private;
                 var tr = $("<tr>").appendTo("#campaigntablebody").data("campaigndata", data[urn]);
                 var td1 = $("<td>").appendTo(tr).text(data[urn].name);
                 var td2 = $("<td>").appendTo(tr).text(data[urn].creation_timestamp);
@@ -67,8 +62,8 @@
                 $("<td>").appendTo(tr).text(data[urn].author_list.join(", "));
 
                 var td3 = $("<td>").appendTo(tr).text(data[urn].running_state);
-                var td4 = $("<td>").appendTo(tr);
-                var td_total_count = $("<td>").appendTo(tr);
+                var td4 = $("<td>").appendTo(tr).text(response_count.shared)
+                var td_total_count = $("<td>").appendTo(tr).text(count);
 
                 var td5 = $("<td>").addClass("buttontd").appendTo(tr);
                 var td6 = $("<td>").appendTo(tr).text("" + data[urn].classes)
@@ -80,10 +75,6 @@
                 var ul = $("<ul />").addClass("dropdown-menu").attr("role", "menu").appendTo(btn);
 
                 var a2 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-th-list"></span> Edit Campaign').attr("href", '../author/#' + urn).click(function(e){
-                    if(count < 0){
-                        e.preventDefault();
-                        message("Loading campaign info, please be patient.", "info")
-                    }
                     /*** We now allow for read-only use of the author tool
                     else if(!user_is_admin && $.inArray("author", roles) < 0 && $.inArray("supervisor", roles) < 0) {
                         e.preventDefault()
@@ -104,30 +95,21 @@
                 ul.append($("<li >").addClass('divider'))
 
                 var responselink = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-share"></span> Responses').attr("href", '../responses/#' + urn).click(function(e){
-                    if(count < 0){
-                        e.preventDefault();
-                        message("Loading campaign info, please be patient.", "info")
-                    } else if(count === 0){
+                    if(count === 0){
                         e.preventDefault();
                         message("Campaign <b>" + urn + "</b> has no existing responses.")
                     }
                 });
 
                 var a3 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-picture"></span> Dashboard').attr("href", '../dashboard/#' + urn).click(function(e){
-                    if(count < 0){
-                        e.preventDefault();
-                        message("Loading campaign info, please be patient.", "info")
-                    } else if(count === 0){
+                    if(count === 0){
                         e.preventDefault();
                         message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to visualize.")
                     }
                 });
 
                 var a7 = $("<a />").appendTo($("<li />").appendTo(ul)).append('<span class="glyphicon glyphicon-blackboard"></span> PlotApp').attr("href", '../plotapp/#' + urn).click(function(e){
-                    if(count < 0){
-                        e.preventDefault();
-                        message("Loading campaign info, please be patient.", "info")
-                    } else if(count === 0){
+                    if(!count === 0){
                         e.preventDefault();
                         message("Campaign <b>" + urn + "</b> has no existing responses. Nothing to plot.")
                     }
@@ -264,26 +246,6 @@
                         });
                     });
                 }
-
-                return oh.survey.count(urn).done(function(counts){
-                    if(!Object.keys(counts).length){
-                        //no existing responses found
-                        count = 0;
-                    } else {
-                        count = $.map(counts, function(val, key) {
-                            return val[0].count;
-                        }).reduce(function(previousValue, currentValue) {
-                            return previousValue + currentValue;
-                        });
-                    }
-                    var sharedcount = counts.shared ? counts.shared[0].count : 0;
-                    //td4.attr("data-sort", sharedcount * 100000 + count);
-                    //td4.text(sharedcount + " / " + count);
-                    td4.text(sharedcount);
-                    td_total_count.text(count)
-                }).always(function(){
-                    updateProgress((progress++/total) * 75 + 25);
-                });
             });
 
             //data tables widget
@@ -338,15 +300,9 @@
                 })
             }
 
-            //init temporary datatable
-            initTable()
-
-            //reinit final datatable after counts have been updated
-            $.when.apply($, requests).always(function() {
-                $("#progressdiv").addClass("hidden");
-                $('#campaigntable').dataTable().fnDestroy();
-                initTable();
-            });
+            //init datatable
+            $("#progressdiv").addClass("hidden");
+            initTable();
 
             //resetters
             $("#myModal").on("hidden.bs.modal", function(){
